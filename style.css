@@ -67,6 +67,10 @@ body {
   cursor: pointer;
 }
 
+.options .disabled {
+  pointer-events: none;
+}
+
 .options .correct {
   z-index: 1;
   color: white;

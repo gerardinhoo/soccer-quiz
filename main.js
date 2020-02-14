@@ -1,4 +1,5 @@
 // Select elements in the DOM
+const options = document.querySelector(".options").children;
 const questionNumber = document.querySelector(".question-num-value");
 const totalQuestion = document.querySelector(".total-question");
 const question = document.querySelector(".question");
@@ -6,7 +7,7 @@ const optionOne = document.querySelector(".option1");
 const optionTwo = document.querySelector(".option2");
 const optionThree = document.querySelector(".option3");
 const optionFour = document.querySelector(".option4");
-let questionIndex = 0;
+let questionIndex;
 let index = 0;
 
 // Questions and answers
@@ -52,6 +53,37 @@ function load() {
   index++;
 }
 
-window.onload = function() {
+function check(el) {
+  if (el.id == questions[questionIndex].answer) {
+    el.classList.add("correct");
+  } else {
+    el.classList.add("wrong");
+  }
+  disabledOptions();
+}
+
+// Disabled options
+function disabledOptions() {
+  for (let i = 0; i < options.length; i++) {
+    options[i].classList.add("disabled");
+    if (options[i].id == questions[questionIndex].answer) {
+      options[i].classList.add("correct");
+    }
+  }
+}
+
+// Generate random number with questions
+function randomQuestion() {
+  let randomNumber = Math.floor(Math.random() * questions.length);
+  questionIndex = randomNumber;
   load();
+}
+
+// Load the randomQuestions function
+window.onload = function() {
+  randomQuestion();
 };
+
+function refreshPage() {
+  window.location.reload();
+}
