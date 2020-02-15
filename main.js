@@ -1,5 +1,6 @@
 // Select elements in the DOM
 const options = document.querySelector(".options").children;
+const answerTrackerContainer = document.querySelector(".answers-tracker");
 const questionNumber = document.querySelector(".question-num-value");
 const totalQuestion = document.querySelector(".total-question");
 const question = document.querySelector(".question");
@@ -56,8 +57,10 @@ function load() {
 function check(el) {
   if (el.id == questions[questionIndex].answer) {
     el.classList.add("correct");
+    updateAnswerTracker("correct");
   } else {
     el.classList.add("wrong");
+    updateAnswerTracker("wrong");
   }
   disabledOptions();
 }
@@ -79,11 +82,24 @@ function randomQuestion() {
   load();
 }
 
+// Tracker answers
+function answerTracker() {
+  for (let i = 0; i < questions.length; i++) {
+    const div = document.createElement("div");
+    answerTrackerContainer.appendChild(div);
+  }
+}
+
+function updateAnswerTracker(classNam) {
+  answerTrackerContainer.children[index - 1].classList.add(classNam);
+}
+
 // Load the randomQuestions function
 window.onload = function() {
   randomQuestion();
+  answerTracker();
 };
 
-function refreshPage() {
-  window.location.reload();
-}
+// function refreshPage() {
+//   window.location.reload();
+// }
